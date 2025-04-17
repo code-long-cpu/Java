@@ -447,11 +447,11 @@ public class Main {
         System.out.println(animal);//wang ba
 
         //48.abstract = Used to define abstract classes and methods.
-        //更加严格的父类，更严格的限定子类行为；
+        //更加严格的父类，更严格的限定子类行为；(不能实例化，只能被继承)
         //              Abstraction is the process of hiding implementation details
         //              and showing only the essential features;
-        //              Abstruct class can't be instantiatied directly
-        //              Can cantain 'abstract' methods (Which must be implemented)
+        //              Abstract class can't be instantiated directly
+        //              Can contain 'abstract' methods (Which must be implemented)
         //              Can contain 'concrete' methods (Which are inherited)
         //抽象类的目的就是防止直接实例化父类，抽象类防止子类忘记实现普通父类关键功能，抽象方法不被继承，就会报错，提高代码规范；
         //就是抽象类统一规定的抽象方法，所有的子类都得跟上实现；而普通父类的方法，子类无所谓。
@@ -479,8 +479,11 @@ public class Main {
         //⚠️抽象类和接口中，子类必须实现的都是抽象方法，而不是属性；
         //①普通父类中属性方法，子类可以自由继承实现；
         //②抽象类中，子类必须实现抽象类的方法；适合共性模板，可以有自己的具体方法；
-        //③接口，子类必须实现其方法声明，无自己的具体方法，可以继承多个接口；适合组合方法能力
+        //③接口，子类必须实现其方法声明，无自己的具体方法，①继承其接口的子类们方法统一，②子类可以继承多个接口，适合组合方法能力；
         //三者合作：接口定义“必须做什么”，抽象类提供“共性怎么做”，具体类实现“个性化细节”。
+
+        //子类实现接口方法，声明对象；
+        //②多继承；
         Rabbit_49 rabbit = new Rabbit_49();
         rabbit.flee(); //The rabbit is running away.
         Hawk hawk = new Hawk();
@@ -489,27 +492,27 @@ public class Main {
         fish1.flee(); //The fish is swimming away.
         fish1.hunt(); //The fish is hunting
 
+        //普通继承，
         Person p1 = new Person("tom",18,10);
         p1.speak(2);
         //你好，我叫tom, 我的年龄是18， 我考了10.0
-        //你好，我叫tom, 我的年龄是18， 我考了10.0
 
-        //接口可以当类型用,只要是接口声明的对象，能直接调用其方法（多态）；
+        //①多态，接口可以当类型用,只要是接口声明的对象，能直接调用其方法（多态）；
         PersonInterface_49 p2 = new Person("jery",20,5);
         p2.speak(1);  //你好，我叫jery, 我的年龄是20， 我考了5.0
 
-        //接口的主要特性是多继承；比起抽象方法，一个类可以实现多个接口功能（没法多态）；
+        //接口的主要特性是多态和多继承；比起抽象只能单继承；接口可以多继承，也可以多态；
         Man p3 = new Man("long",30,100);
         p3.speak(1); //我是long, 我的年龄是30， 我考了100.0
         p3.move();      //男人都是很擅长运动的。
 
-        //50.Polymorphism多态 = "Poly" = "many" 多
+        //50.Polymorphism多态 = "Poly" = "many" 多 (就是面向接口编程)
         //（关键字extends、implements）;语法 Animal a = new Dog(); a.speak();
         //                  "morph"="shape" 态
-        //                  objects can identify as other onjects
+        //                  objects can identify as other objects
         //                  objects can be treated as objects of a common superclass.
-        //同一个接口，表现不同的行为 (Dynamic Polymorphism),某个方法调用在new时候决定；
-        //其实就是父类声明对象，cat和dog和wolf都继承animal父类(接口抽象类父类)，就能用animal声明对象，调用父类方法；
+        //同一个接口，表现不同的行为 (Dynamic Polymorphism),接口规定的方法名一样，但是具体执行方法效果在new具体子类的时候决定；
+        //父类声明对象，cat和dog和wolf都继承animal父类(接口抽象类父类，实现规定方法)，就能用animal声明对象，实现同样的方法，不同的执行效果；
         Car50 car5 = new Car50();
         Bike50 bike = new Bike50();
         Boat50 boat = new Boat50();
@@ -518,7 +521,8 @@ public class Main {
         bike.go(); //You ride the bike.
         boat.go(); //You sail the boat.
 
-        //其实就是父类声明对象，cat和dog和wolf都继承animal父类(接口抽象类父类)，就能用animal声明对象，调用父类方法；
+        //⚠️接口Vehicle_50规定了方法名go，Car50和Bike50和Boat50继承接口方法名go，在接口声明下的实现类方法，方法名一样，子类内部执行方法却不一样；未来把car换成bike都是一样跑，跑的方式就不一样，不用重新写代码，达到想要的效果；
+        //⚠️就跟Arraylist和PriorityQueue都是继承Queue的接口一样，方法名一样，方法体(各个实现类内部自己定义)不一样；（这就是面向接口编程）
         Vehicle_50 car50 = new Car50();
         Vehicle_50 bike50 = new Bike50();
         Vehicle_50 boat50 = new Boat50();
@@ -648,6 +652,7 @@ public class Main {
         //56. ArrayList(类) = A resizeable array that stores objects(autoboxing).
         //                Arrays are fixed in size, but ArrayLists can change.
         //Java的泛型(generics)只能接受引用类型(对象类型)不支持基本类型(primitive types)
+        //arrylist.add(5); 传入primitive type自动autoboxing为Integer类型；
         //array是对象，ArrayList是类。
         ArrayList<Integer> list = new ArrayList<>();
         list.add(3); //自动将int 3,包装为Integer(3)
@@ -730,6 +735,8 @@ public class Main {
         //countDownTimer();
 
         //66. Generics泛型类<T> = A concept where you can write a class, interface, or method
+        //Java的泛型(generics)只能接受引用类型(对象类型)不支持基本类型(primitive types)
+        //arrylist.add(5); 传入primitive type自动autoboxing为Integer类型；
         //泛型作用：存任何类型的数据，但又想类型安全；用法：定义类的时候用<T>，new的时候得给出具体的类型<string>；关键字：<T> ； 语法：List<String>、class Box<T>
         //普通类，只能存内部定义的类型；
         //普通类：如果你只要一把小刀，用专用的就好；
@@ -747,16 +754,16 @@ public class Main {
         numb.add(1);
         numb.add(2);
 
-        //<T> type parameter定义类, 具体new对象时候就得给出具体的类型
-        GenericsBox66<String> box = new GenericsBox66<>();
+        //<T> type parameter定义对象类型类
+        GenericsBox66<String> box = new GenericsBox66<>(); //对象类型是String
         box.setItem("banana");
         String name66 = box.getItem();
-        System.out.println(name66); //box里放了一个banana
+        System.out.println(name66); //box里放了一个String类型的banana
 
-        GenericsBox66<Integer> box2 = new GenericsBox66<>();
+        GenericsBox66<Integer> box2 = new GenericsBox66<>(); //对象类型是Integer
         box2.setItem(3);
         int num66=box2.getItem();
-        System.out.println(num66); //box里放了一个数字3
+        System.out.println(num66); //box里放了一个Integer类型的数字3
 
         //<T, U> 多个泛型，字母U在T之后，所以用U；
         Product66<String,Double> product1 = new Product66<>("apple",3.55);
